@@ -51,7 +51,7 @@ public class McpReceiver extends BroadcastReceiver {
             Process p = newProcess(new String[]{"/system/bin/sh", "-c", command});
             Future<String> so = EXEC.submit(() -> readAll(p.getInputStream()));
             Future<String> se = EXEC.submit(() -> readAll(p.getErrorStream()));
-            Future<Integer> w = EXEC.submit(p::waitFor);
+            Future<Integer> w = EXEC.submit(() -> { try { return p.waitFor(); } catch (InterruptedException ie) { throw new RuntimeException(ie); } });
             try {
                 r.exitCode = w.get(timeoutSec, TimeUnit.SECONDS);
             } catch (TimeoutException te) {
