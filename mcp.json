@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "shizuku": {
+      "command": "python3",
+      "args": ["/sdcard/shizuku_mcp.py", "serve"],
+      "description": "Executa comandos shell com privilégio Shizuku (root/adb) no Android local"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.arena.shizuku_shell_local'
+    compileSdk 36
+    defaultConfig { applicationId 'com.arena.shizuku_shell_local'; minSdk 24; targetSdk 36; versionCode 2; versionName '1.1.0-mcp' }
+    buildTypes { release { minifyEnabled false } debug { } }
+    externalNativeBuild { cmake { path file('src/main/cpp/CMakeLists.txt'); version '3.22.1' } }
+}
+dependencies {
+    def shizukuVersion = '13.1.5'
+    implementation "dev.rikka.shizuku:api:$shizukuVersion"
+    implementation "dev.rikka.shizuku:provider:$shizukuVersion"
+}
