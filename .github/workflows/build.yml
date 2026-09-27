@@ -19,8 +19,13 @@ jobs:
 
       - name: Install Android packages
         run: |
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          sdkmanager "ndk;28.2.13676358" "cmake;3.22.1" "platforms;android-36" "build-tools;36.0.0"
+          SDK=/usr/local/lib/android/sdk
+          ls "$SDK/cmdline-tools/" || true
+          SD="$SDK/cmdline-tools/latest/bin/sdkmanager"
+          [ -x "$SD" ] || SD=$(echo $SDK/cmdline-tools/*/bin/sdkmanager | cut -d' ' -f1)
+          echo "sdkmanager=$SD"
+          yes | "$SD" --licenses > /dev/null 2>&1 || true
+          "$SD" "ndk;28.2.13676358" "cmake;3.22.1" "platforms;android-36" "build-tools;36.0.0"
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
           ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
